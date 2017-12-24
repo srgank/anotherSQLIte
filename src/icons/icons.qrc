@@ -1,0 +1,69 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="db_new">database_add.png</file>
+        <file alias="db_open">database_go.png</file>
+        <file alias="db_revert">database_refresh.png</file>
+        <file alias="db_save">database_save.png</file>
+        <file alias="table_create">table_add.png</file>
+        <file alias="table_delete">table_delete.png</file>
+        <file alias="table_modify">table_edit.png</file>
+        <file alias="index_create">tag_blue_add.png</file>
+        <file alias="index_delete">tag_blue_delete.png</file>
+        <file alias="field_edit">page_edit.png</file>
+        <file alias="field_delete">page_delete.png</file>
+        <file alias="field_add">page_add.png</file>
+        <file alias="field">page_green.png</file>
+        <file alias="table">table.png</file>
+        <file alias="index">tag_blue.png</file>
+        <file alias="refresh">view-refresh.png</file>
+        <file alias="view_delete">picture_delete.png</file>
+        <file alias="view">picture.png</file>
+        <file alias="view_create">picture_add.png</file>
+        <file alias="trigger">script.png</file>
+        <file alias="trigger_create">script_add.png</file>
+        <file alias="trigger_delete">script_delete.png</file>
+        <file alias="settings">wrench.png</file>
+        <file alias="whatis">help.png</file>
+        <file alias="open_tab">tab_add.png</file>
+        <file alias="run">resultset_next.png</file>
+        <file alias="save_sql">page_save.png</file>
+        <file alias="open_sql">page_white_database.png</file>
+        <file alias="load_extension">plugin_add.png</file>
+        <file alias="remove_extension">plugin_delete.png</file>
+        <file alias="save_table">table_save.png</file>
+        <file alias="run_line">resultset_last.png</file>
+        <file alias="toolbar">layout_sidebar.png</file>
+        <file alias="down">bullet_arrow_down.png</file>
+        <file alias="up">bullet_arrow_up.png</file>
+        <file alias="appicon">sqlitebrowser.png</file>
+        <file alias="browser_open">internet-web-browser.png</file>
+        <file alias="project_save">package.png</file>
+        <file alias="project_open">package_go.png</file>
+        <file alias="field_key">page_key.png</file>
+        <file alias="encryption">key.png</file>
+        <file alias="document_open">document-open.png</file>
+        <file alias="function">chart_curve.png</file>
+        <file alias="keyword">cog.png</file>
+        <file alias="clear_filters">clear_filters.png</file>
+        <file alias="copy">page_copy.png</file>
+        <file>resultset_previous.png</file>
+        <file>resultset_first.png</file>
+        <file alias="view_modify">picture_edit.png</file>
+        <file alias="trigger_modify">script_edit.png</file>
+        <file alias="index_modify">tag_blue_edit.png</file>
+        <file>folder.png</file>
+        <file>database.png</file>
+        <file>cog_go.png</file>
+        <file alias="paste">page_paste.png</file>
+        <file>folder_user.png</file>
+        <file alias="push_database">server_go.png</file>
+        <file alias="find">page_find.png</file>
+        <file alias="close">cross.png</file>
+        <file alias="special_copy">page_white_copy.png</file>
+        <file alias="text_replace">text_replace.png</file>
+        <file alias="image_save">picture_save.png</file>
+        <file alias="log_dock">application_side_list.png</file>
+        <file alias="db_attach">database_link.png</file>
+        <file alias="text_indent">text_indent.png</file>
+    </qresource>
+</RCC>

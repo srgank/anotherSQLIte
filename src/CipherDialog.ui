@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CipherDialog</class>
+ <widget class="QDialog" name="CipherDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>712</width>
+    <height>183</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SQLCipher encryption</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QLabel" name="labelDialogDescription"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelPassword">
+         <property name="text">
+          <string>&amp;Password</string>
+         </property>
+         <property name="buddy">
+          <cstring>editPassword</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="editPassword">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelPassword2">
+         <property name="text">
+          <string>&amp;Reenter password</string>
+         </property>
+         <property name="buddy">
+          <cstring>editPassword2</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="editPassword2">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Page si&amp;ze</string>
+         </property>
+         <property name="buddy">
+          <cstring>spinPageSize</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QSpinBox" name="spinPageSize">
+         <property name="minimum">
+          <number>512</number>
+         </property>
+         <property name="maximum">
+          <number>65536</number>
+         </property>
+         <property name="value">
+          <number>1024</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QComboBox" name="comboKeyFormat">
+         <item>
+          <property name="text">
+           <string>Passphrase</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Raw key</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>editPassword</tabstop>
+  <tabstop>comboKeyFormat</tabstop>
+  <tabstop>editPassword2</tabstop>
+  <tabstop>spinPageSize</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CipherDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>233</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CipherDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editPassword</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>CipherDialog</receiver>
+   <slot>checkInputFields()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>155</x>
+     <y>26</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editPassword2</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>CipherDialog</receiver>
+   <slot>checkInputFields()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>206</x>
+     <y>46</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboKeyFormat</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>CipherDialog</receiver>
+   <slot>checkInputFields()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>670</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>665</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>checkInputFields()</slot>
+ </slots>
+</ui>

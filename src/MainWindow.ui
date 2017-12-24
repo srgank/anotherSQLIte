@@ -1,0 +1,3303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1037</width>
+    <height>630</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DB Browser for SQLite</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons/icons.qrc">
+    <normaloff>:/icons/appicon</normaloff>:/icons/appicon</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
+    <item>
+     <widget class="QTabWidget" name="mainTab">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="structure">
+       <attribute name="title">
+        <string>Database Structure</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>4</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QToolBar" name="dbToolbar">
+          <property name="windowTitle">
+           <string>toolBar1</string>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+          <addaction name="editCreateTableAction"/>
+          <addaction name="editCreateIndexAction"/>
+          <addaction name="editModifyObjectAction"/>
+          <addaction name="editDeleteObjectAction"/>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTreeView" name="dbTreeWidget">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="dragEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="dragDropMode">
+           <enum>QAbstractItemView::DragDrop</enum>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <property name="animated">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="browser">
+       <attribute name="title">
+        <string>Browse Data</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>&amp;Table:</string>
+            </property>
+            <property name="buddy">
+             <cstring>comboBrowseTable</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBrowseTable">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>1</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Select a table to browse data</string>
+            </property>
+            <property name="whatsThis">
+             <string>Use this list to select a table to be displayed in the database view</string>
+            </property>
+            <property name="maxVisibleItems">
+             <number>30</number>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QComboBox::AdjustToContents</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonRefresh">
+            <property name="toolTip">
+             <string>Refresh the data in the selected table [F5, Ctrl+R]</string>
+            </property>
+            <property name="whatsThis">
+             <string>This button refreshes the data in the currently selected table.</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/refresh</normaloff>:/icons/refresh</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonClearFilters">
+            <property name="toolTip">
+             <string>Clear all filters</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/clear_filters</normaloff>:/icons/clear_filters</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonSaveFilterAsView">
+            <property name="toolTip">
+             <string>Save the current filter, sort column and display formats as a view</string>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/save_table</normaloff>:/icons/save_table</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>200</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="buttonNewRecord">
+            <property name="toolTip">
+             <string>Insert a new record in the current table</string>
+            </property>
+            <property name="whatsThis">
+             <string>This button creates a new, empty record in the database</string>
+            </property>
+            <property name="text">
+             <string>New Record</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="buttonDeleteRecord">
+            <property name="toolTip">
+             <string>Delete the current record</string>
+            </property>
+            <property name="whatsThis">
+             <string>This button deletes the record currently selected in the database</string>
+            </property>
+            <property name="text">
+             <string>Delete Record</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="ExtendedTableWidget" name="dataTable">
+          <property name="acceptDrops">
+           <bool>true</bool>
+          </property>
+          <property name="whatsThis">
+           <string>This is the database view. You can double-click any record to edit its contents in the cell editor window.</string>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="dragDropMode">
+           <enum>QAbstractItemView::DragDrop</enum>
+          </property>
+          <property name="defaultDropAction">
+           <enum>Qt::CopyAction</enum>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ContiguousSelection</enum>
+          </property>
+          <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QToolButton" name="buttonBegin">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Scroll to the beginning&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clicking this button navigates to the beginning in the table view above.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>|&lt;</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/resultset_first.png</normaloff>:/icons/resultset_first.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonPrevious">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Scroll one page upwards</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clicking this button navigates one page of records upwards in the table view above.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>&lt;</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/resultset_previous.png</normaloff>:/icons/resultset_previous.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelRecordset">
+            <property name="text">
+             <string>0 - 0 of 0</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonNext">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Scroll one page downwards</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clicking this button navigates one page of records downwards in the table view above.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>&gt;</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/run</normaloff>:/icons/run</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="buttonEnd">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Scroll to the end</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Clicking this button navigates up to the end in the table view above.&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>&gt;|</string>
+            </property>
+            <property name="icon">
+             <iconset resource="icons/icons.qrc">
+              <normaloff>:/icons/run_line</normaloff>:/icons/run_line</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="buttonGoto">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click here to jump to the specified record&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This button is used to navigate to the record number specified in the Go to area.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Go to:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="editGoto">
+            <property name="toolTip">
+             <string>Enter record number to browse</string>
+            </property>
+            <property name="whatsThis">
+             <string>Type a record number in this area and click the Go to: button to display the record in the database view</string>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pragmas">
+       <attribute name="title">
+        <string>Edit Pragmas</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QScrollArea" name="scrollareaPragmas">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>566</width>
+             <height>531</height>
+            </rect>
+           </property>
+           <layout class="QFormLayout" name="formLayout">
+            <property name="fieldGrowthPolicy">
+             <enum>QFormLayout::ExpandingFieldsGrow</enum>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPragmaAutoVacuum">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_auto_vacuum&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Auto Vacuum&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse</set>
+              </property>
+              <property name="buddy">
+               <cstring>comboboxPragmaAutoVacuum</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboboxPragmaAutoVacuum">
+              <item>
+               <property name="text">
+                <string>None</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Full</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Incremental</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="labelPragmaAutomaticIndex">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_automatic_index&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Automatic Index&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaAutomaticIndex</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaAutomaticIndex">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="labelPragmaCheckpointFullFsync">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_checkpoint_fullfsync&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Checkpoint Full FSYNC&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaCheckpointFullFsync</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaCheckpointFullFsync">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="labelPragmaForeignKeys">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_foreign_keys&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Foreign Keys&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaForeignKeys</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaForeignKeys">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="labelPragmaFullFsync">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_fullfsync&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Full FSYNC&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaFullFsync</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaFullFsync">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="labelPragmaIgnoreCheckConstraints">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_ignore_check_constraints&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Ignore Check Constraints&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaIgnoreCheckConstraints</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaIgnoreCheckConstraints">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="labelPragmaJournalMode">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_journal_mode&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Journal Mode&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>comboboxPragmaJournalMode</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QComboBox" name="comboboxPragmaJournalMode">
+              <item>
+               <property name="text">
+                <string>Delete</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Truncate</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Persist</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Memory</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>WAL</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Off</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="labelJournalSizeLimit">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_journal_size_limit&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Journal Size Limit&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>spinPragmaJournalSizeLimit</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QSpinBox" name="spinPragmaJournalSizeLimit">
+              <property name="minimum">
+               <number>-1</number>
+              </property>
+              <property name="maximum">
+               <number>100000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="labelPragmaLockingMode">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_locking_mode&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Locking Mode&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>comboboxPragmaLockingMode</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QComboBox" name="comboboxPragmaLockingMode">
+              <item>
+               <property name="text">
+                <string>Normal</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Exclusive</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="labelPragmaMaxPageCount">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_max_page_count&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Max Page Count&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>spinPragmaMaxPageCount</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QSpinBox" name="spinPragmaMaxPageCount">
+              <property name="maximum">
+               <number>2000000000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="labelPragmaPageSize">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_page_size&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Page Size&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>spinPragmaPageSize</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="QSpinBox" name="spinPragmaPageSize">
+              <property name="minimum">
+               <number>512</number>
+              </property>
+              <property name="maximum">
+               <number>65536</number>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="labelPragmaRecursiveTriggers">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_recursive_triggers&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Recursive Triggers&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaRecursiveTriggers</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaRecursiveTriggers">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="labelPragmaSecureDelete">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_secure_delete&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Secure Delete&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>checkboxPragmaSecureDelete</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="1">
+             <widget class="QCheckBox" name="checkboxPragmaSecureDelete">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="labelPragmaSynchronous">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_synchronous&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Synchronous&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>comboboxPragmaSynchronous</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="1">
+             <widget class="QComboBox" name="comboboxPragmaSynchronous">
+              <item>
+               <property name="text">
+                <string>Off</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Normal</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Full</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="labelPragmaTempStore">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_temp_store&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Temp Store&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>comboboxPragmaTempStore</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QComboBox" name="comboboxPragmaTempStore">
+              <item>
+               <property name="text">
+                <string>Default</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>File</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Memory</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="labelPragmaUserVersion">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_user_version&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;User Version&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>spinPragmaUserVersion</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QSpinBox" name="spinPragmaUserVersion">
+              <property name="maximum">
+               <number>2147483647</number>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="labelPragmaWalAutoCheckpoint">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.sqlite.org/pragma.html#pragma_wal_autocheckpoint&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;WAL Auto Checkpoint&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="buddy">
+               <cstring>spinPragmaWalAutoCheckpoint</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="1">
+             <widget class="QSpinBox" name="spinPragmaWalAutoCheckpoint">
+              <property name="maximum">
+               <number>10000</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDialogButtonBox" name="buttonBoxPragmas">
+          <property name="standardButtons">
+           <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+          </property>
+          <property name="centerButtons">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="query">
+       <attribute name="title">
+        <string>Execute SQL</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QToolBar" name="toolbarSql">
+          <property name="windowTitle">
+           <string>toolBar1</string>
+          </property>
+          <addaction name="actionSqlOpenTab"/>
+          <addaction name="actionSqlOpenFile"/>
+          <addaction name="actionSqlSaveFilePopup"/>
+          <addaction name="separator"/>
+          <addaction name="actionExecuteSql"/>
+          <addaction name="actionSqlExecuteLine"/>
+          <addaction name="separator"/>
+          <addaction name="actionSqlResultsSave"/>
+          <addaction name="separator"/>
+          <addaction name="actionSqlFind"/>
+          <addaction name="actionSqlFindReplace"/>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTabWidget" name="tabSqlAreas">
+          <property name="currentIndex">
+           <number>-1</number>
+          </property>
+          <property name="tabsClosable">
+           <bool>true</bool>
+          </property>
+          <property name="movable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1037</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menuImport">
+     <property name="title">
+      <string>&amp;Import</string>
+     </property>
+     <addaction name="fileImportSQLAction"/>
+     <addaction name="fileImportCSVAction"/>
+    </widget>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>&amp;Export</string>
+     </property>
+     <addaction name="fileExportSQLAction"/>
+     <addaction name="fileExportCSVAction"/>
+     <addaction name="fileExportJsonAction"/>
+    </widget>
+    <addaction name="fileNewAction"/>
+    <addaction name="fileOpenAction"/>
+    <addaction name="fileOpenReadOnlyAction"/>
+    <addaction name="fileAttachAction"/>
+    <addaction name="fileCloseAction"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="fileSaveAction"/>
+    <addaction name="fileRevertAction"/>
+    <addaction name="fileCompactAction"/>
+    <addaction name="actionEncryption"/>
+    <addaction name="actionLoadExtension"/>
+    <addaction name="separator"/>
+    <addaction name="menuImport"/>
+    <addaction name="menuExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpenProject"/>
+    <addaction name="actionSaveProject"/>
+    <addaction name="separator"/>
+    <addaction name="fileExitAction"/>
+   </widget>
+   <widget class="QMenu" name="editMenu">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="editCreateTableAction"/>
+    <addaction name="editModifyObjectAction"/>
+    <addaction name="editDeleteObjectAction"/>
+    <addaction name="separator"/>
+    <addaction name="editCreateIndexAction"/>
+   </widget>
+   <widget class="QMenu" name="viewMenu">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="viewDBToolbarAction"/>
+    <addaction name="viewExtraDBToolbarAction"/>
+    <addaction name="viewProjectToolbarAction"/>
+    <addaction name="separator"/>
+    <addaction name="viewPreferencesAction"/>
+   </widget>
+   <widget class="QMenu" name="helpMenu">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="helpWhatsThisAction"/>
+    <addaction name="actionWebsite"/>
+    <addaction name="actionWiki"/>
+    <addaction name="actionSqlCipherFaq"/>
+    <addaction name="actionBug_report"/>
+    <addaction name="helpAboutAction"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="editMenu"/>
+   <addaction name="viewMenu"/>
+   <addaction name="helpMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolbarDB">
+   <property name="windowTitle">
+    <string>DB Toolbar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="fileNewAction"/>
+   <addaction name="fileOpenAction"/>
+   <addaction name="separator"/>
+   <addaction name="fileSaveAction"/>
+   <addaction name="fileRevertAction"/>
+  </widget>
+  <widget class="QDockWidget" name="dockEdit">
+   <property name="windowTitle">
+    <string>Edit Database &amp;Cell</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4"/>
+  </widget>
+  <widget class="QDockWidget" name="dockLog">
+   <property name="features">
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="windowTitle">
+    <string>SQL &amp;Log</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="labelLogSubmittedBy">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Show S&amp;QL submitted by</string>
+         </property>
+         <property name="buddy">
+          <cstring>comboLogSubmittedBy</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboLogSubmittedBy">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>User</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Application</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonLogClear">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>&amp;Clear</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QStackedWidget" name="stackLog">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="SqlTextEdit" name="editLogUser">
+        <property name="font">
+         <font>
+          <family>Monospace</family>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="SqlTextEdit" name="editLogApplication">
+        <property name="font">
+         <font>
+          <family>Monospace</family>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockPlot">
+   <property name="features">
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="windowTitle">
+    <string>&amp;Plot</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout_6"/>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockSchema">
+   <property name="windowTitle">
+    <string>DB Sche&amp;ma</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QVBoxLayout" name="verticalLayout_9">
+     <item>
+      <widget class="QTreeView" name="treeSchemaDock">
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="verticalScrollMode">
+        <enum>QAbstractItemView::ScrollPerPixel</enum>
+       </property>
+       <property name="animated">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockRemote">
+   <property name="windowTitle">
+    <string>&amp;Remote</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_5"/>
+  </widget>
+  <widget class="QToolBar" name="toolbarProject">
+   <property name="windowTitle">
+    <string>Project Toolbar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpenProject"/>
+   <addaction name="actionSaveProject"/>
+  </widget>
+  <widget class="QToolBar" name="toolbarExtraDB">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Extra DB toolbar</string>
+   </property>
+   <property name="toolTip">
+    <string>Close the current database file</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="fileAttachAction"/>
+   <addaction name="fileCloseAction"/>
+  </widget>
+  <action name="fileNewAction">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/db_new</normaloff>:/icons/db_new</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New Database...</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new database file</string>
+   </property>
+   <property name="statusTip">
+    <string>Create a new database file</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option is used to create a new database file.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileOpenAction">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/db_open</normaloff>:/icons/db_open</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open Database...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open an existing database file</string>
+   </property>
+   <property name="statusTip">
+    <string>Open an existing database file</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option is used to open an existing database file.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileCloseAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/close</normaloff>:/icons/close</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Close Database</string>
+   </property>
+   <property name="toolTip">
+    <string>Close the current database file</string>
+   </property>
+   <property name="statusTip">
+    <string>Close the current database file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileRevertAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/db_revert</normaloff>:/icons/db_revert</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Revert Changes</string>
+   </property>
+   <property name="toolTip">
+    <string>Revert database to last saved state</string>
+   </property>
+   <property name="statusTip">
+    <string>Revert database to last saved state</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option is used to revert the current database file to its last saved state. All changes made since the last save operation are lost.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileSaveAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/db_save</normaloff>:/icons/db_save</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Write Changes</string>
+   </property>
+   <property name="toolTip">
+    <string>Write changes to the database file</string>
+   </property>
+   <property name="statusTip">
+    <string>Write changes to the database file</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option is used to save changes to the database file.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileCompactAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Compact &amp;Database</string>
+   </property>
+   <property name="toolTip">
+    <string>Compact the database file, removing space wasted by deleted records</string>
+   </property>
+   <property name="statusTip">
+    <string>Compact the database file, removing space wasted by deleted records.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Compact the database file, removing space wasted by deleted records.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileExitAction">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="fileImportSQLAction">
+   <property name="text">
+    <string>&amp;Database from SQL file...</string>
+   </property>
+   <property name="toolTip">
+    <string>Import data from an .sql dump text file into a new or existing database.</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option lets you import data from an .sql dump text file into a new or existing database. SQL dump files can be created on most database engines, including MySQL and PostgreSQL.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileImportCSVAction">
+   <property name="text">
+    <string>&amp;Table from CSV file...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open a wizard that lets you import data from a comma separated text file into a database table.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open a wizard that lets you import data from a comma separated text file into a database table. CSV files can be created on most database and spreadsheet applications.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileExportSQLAction">
+   <property name="text">
+    <string>&amp;Database to SQL file...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export a database to a .sql dump text file.</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option lets you export a database to a .sql dump text file. SQL dump files contain all data necessary to recreate the database on most database engines, including MySQL and PostgreSQL.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileExportCSVAction">
+   <property name="text">
+    <string>&amp;Table(s) as CSV file...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export a database table as a comma separated text file.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Export a database table as a comma separated text file, ready to be imported into other database or spreadsheet applications.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="editCreateTableAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/table_create</normaloff>:/icons/table_create</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Create Table...</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open the Create Table wizard, where it is possible to define the name and fields for a new table in the database</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="editDeleteObjectAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/table_delete</normaloff>:/icons/table_delete</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Delete Table...</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Table</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open the Delete Table wizard, where you can select a database table to be dropped.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="editModifyObjectAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/table_modify</normaloff>:/icons/table_modify</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Modify Table...</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open the Modify Table wizard, where it is possible to rename an existing table. It is also possible to add or delete fields form a table, as well as modify field names and types.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="editCreateIndexAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/index_create</normaloff>:/icons/index_create</iconset>
+   </property>
+   <property name="text">
+    <string>Create &amp;Index...</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open the Create Index wizard, where it is possible to define a new index on an existing database table.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="viewPreferencesAction">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/settings</normaloff>:/icons/settings</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Preferences...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the preferences window.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open the preferences window.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="viewDBToolbarAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/toolbar</normaloff>:/icons/toolbar</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;DB Toolbar</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows or hides the Database toolbar.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="helpWhatsThisAction">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/whatis</normaloff>:/icons/whatis</iconset>
+   </property>
+   <property name="text">
+    <string>W&amp;hat's This?</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F1</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="helpAboutAction">
+   <property name="text">
+    <string>&amp;About...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="actionRecent_y_opened">
+   <property name="text">
+    <string>&amp;Recently opened</string>
+   </property>
+  </action>
+  <action name="actionSqlOpenTab">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/open_tab</normaloff>:/icons/open_tab</iconset>
+   </property>
+   <property name="text">
+    <string>Open &amp;tab</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionExecuteSql">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/run</normaloff>:/icons/run</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Execute SQL</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute SQL [F5, Ctrl+Return, Ctrl+R]</string>
+   </property>
+  </action>
+  <action name="actionSqlOpenFile">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/document_open</normaloff>:/icons/document_open</iconset>
+   </property>
+   <property name="text">
+    <string>Open SQL file</string>
+   </property>
+  </action>
+  <action name="actionSqlSaveFile">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/save_sql</normaloff>:/icons/save_sql</iconset>
+   </property>
+   <property name="text">
+    <string>Save SQL file</string>
+   </property>
+  </action>
+  <action name="actionLoadExtension">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/load_extension</normaloff>:/icons/load_extension</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Load extension</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionSqlExecuteLine">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/run_line</normaloff>:/icons/run_line</iconset>
+   </property>
+   <property name="text">
+    <string>Execute current line</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute current line [Shift+F5]</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F5</string>
+   </property>
+  </action>
+  <action name="actionExportCsvPopup">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Export as CSV file</string>
+   </property>
+   <property name="toolTip">
+    <string>Export table as comma separated values file</string>
+   </property>
+  </action>
+  <action name="actionWiki">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/browser_open</normaloff>:/icons/browser_open</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Wiki...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionBug_report">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/browser_open</normaloff>:/icons/browser_open</iconset>
+   </property>
+   <property name="text">
+    <string>Bug &amp;report...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionWebsite">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/browser_open</normaloff>:/icons/browser_open</iconset>
+   </property>
+   <property name="text">
+    <string>Web&amp;site...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionSaveProject">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/project_save</normaloff>:/icons/project_save</iconset>
+   </property>
+   <property name="text">
+    <string>Sa&amp;ve Project</string>
+   </property>
+   <property name="toolTip">
+    <string>Save the current session to a file</string>
+   </property>
+   <property name="statusTip">
+    <string>Save the current session to a file</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionOpenProject">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/project_open</normaloff>:/icons/project_open</iconset>
+   </property>
+   <property name="text">
+    <string>Open &amp;Project</string>
+   </property>
+   <property name="toolTip">
+    <string>Load a working session from a file</string>
+   </property>
+   <property name="statusTip">
+    <string>Load a working session from a file</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="fileAttachAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/db_attach</normaloff>:/icons/db_attach</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Attach Database</string>
+   </property>
+   <property name="toolTip">
+    <string>Add another database file to the current database connection</string>
+   </property>
+   <property name="statusTip">
+    <string>Add another database file to the current database connection</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionEncryption">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/encryption</normaloff>:/icons/encryption</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Set Encryption</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionSqlSaveFileAs">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/save_sql</normaloff>:/icons/save_sql</iconset>
+   </property>
+   <property name="text">
+    <string>Save SQL file as</string>
+   </property>
+   <property name="toolTip">
+    <string>Save SQL file as</string>
+   </property>
+  </action>
+  <action name="actionSqlSaveFilePopup">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/save_sql</normaloff>:/icons/save_sql</iconset>
+   </property>
+   <property name="text">
+    <string>Save SQL file</string>
+   </property>
+   <property name="toolTip">
+    <string>Save SQL file</string>
+   </property>
+  </action>
+  <action name="actionEditBrowseTable">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/table</normaloff>:/icons/table</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Browse Table</string>
+   </property>
+  </action>
+  <action name="actionEditCopyCreateStatement">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/copy</normaloff>:/icons/copy</iconset>
+   </property>
+   <property name="text">
+    <string>Copy Create statement</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy the CREATE statement of the item to the clipboard</string>
+   </property>
+  </action>
+  <action name="actionBrowseTableEditDisplayFormat">
+   <property name="text">
+    <string>Edit display format</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit the display format of the data in this column</string>
+   </property>
+  </action>
+  <action name="actionShowRowidColumn">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show rowid column</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle the visibility of the rowid column</string>
+   </property>
+  </action>
+  <action name="actionSetTableEncoding">
+   <property name="text">
+    <string>Set encoding</string>
+   </property>
+   <property name="toolTip">
+    <string>Change the encoding of the text in the table cells</string>
+   </property>
+  </action>
+  <action name="actionSetAllTablesEncoding">
+   <property name="text">
+    <string>Set encoding for all tables</string>
+   </property>
+   <property name="toolTip">
+    <string>Change the default encoding assumed for all tables in the database</string>
+   </property>
+  </action>
+  <action name="actionSqlCipherFaq">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/browser_open</normaloff>:/icons/browser_open</iconset>
+   </property>
+   <property name="text">
+    <string>SQLCipher &amp;FAQ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the SQLCipher FAQ in a browser window</string>
+   </property>
+  </action>
+  <action name="fileExportJsonAction">
+   <property name="text">
+    <string>Table(&amp;s) to JSON...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export one or more table(s) to a JSON file</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="text">
+    <string>Refresh</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="fileOpenReadOnlyAction">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/db_open</normaloff>:/icons/db_open</iconset>
+   </property>
+   <property name="text">
+    <string>Open Data&amp;base Read Only...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open an existing database file in read only mode</string>
+   </property>
+   <property name="statusTip">
+    <string>Open an existing database file</string>
+   </property>
+   <property name="whatsThis">
+    <string>This option is used to open an existing database file.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionUnlockViewEditing">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Unlock view editing</string>
+   </property>
+   <property name="toolTip">
+    <string>This unlocks the current view for editing. However, you will need appropriate triggers for editing.</string>
+   </property>
+  </action>
+  <action name="actionSqlResultsSave">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/save_table</normaloff>:/icons/save_table</iconset>
+   </property>
+   <property name="text">
+    <string>Save results</string>
+   </property>
+   <property name="toolTip">
+    <string>Save the results view</string>
+   </property>
+  </action>
+  <action name="actionSqlFind">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/find</normaloff>:/icons/find</iconset>
+   </property>
+   <property name="text">
+    <string>Find text in SQL editor</string>
+   </property>
+   <property name="toolTip">
+    <string>Find text in SQL editor [Ctrl+F]</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionSqlFindReplace">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/text_replace</normaloff>:/icons/text_replace</iconset>
+   </property>
+   <property name="text">
+    <string>Find or replace text in SQL editor</string>
+   </property>
+   <property name="toolTip">
+    <string>Find or replace text in SQL editor [Ctrl+H]</string>
+   </property>
+  </action>
+  <action name="actionSqlResultsExportCsv">
+   <property name="text">
+    <string>Export to &amp;CSV</string>
+   </property>
+  </action>
+  <action name="actionSqlResultsSaveAsView">
+   <property name="text">
+    <string>Save as &amp;view</string>
+   </property>
+   <property name="toolTip">
+    <string>Save as view</string>
+   </property>
+  </action>
+  <action name="actionHideColumns">
+   <property name="text">
+    <string>Hide column(s)</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide selected column(s)</string>
+   </property>
+  </action>
+  <action name="actionShowAllColumns">
+   <property name="text">
+    <string>Show all columns</string>
+   </property>
+   <property name="toolTip">
+    <string>Show all columns that were hidden</string>
+   </property>
+  </action>
+  <action name="viewProjectToolbarAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/toolbar</normaloff>:/icons/toolbar</iconset>
+   </property>
+   <property name="text">
+    <string>Project Toolbar</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows or hides the Project toolbar.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="viewExtraDBToolbarAction">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/icons/toolbar</normaloff>:/icons/toolbar</iconset>
+   </property>
+   <property name="text">
+    <string>Extra DB Toolbar</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SqlTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>sqltextedit.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ExtendedTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>ExtendedTableWidget.h</header>
+   <slots>
+    <signal>foreignKeyClicked(QString,QString,QByteArray)</signal>
+    <signal>foreignKeyClicked(sqlb::ObjectIdentifier,QString,QByteArray)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>mainTab</tabstop>
+  <tabstop>dbTreeWidget</tabstop>
+  <tabstop>comboLogSubmittedBy</tabstop>
+  <tabstop>buttonLogClear</tabstop>
+  <tabstop>treeSchemaDock</tabstop>
+  <tabstop>comboBrowseTable</tabstop>
+  <tabstop>buttonRefresh</tabstop>
+  <tabstop>buttonClearFilters</tabstop>
+  <tabstop>buttonNewRecord</tabstop>
+  <tabstop>buttonDeleteRecord</tabstop>
+  <tabstop>dataTable</tabstop>
+  <tabstop>buttonBegin</tabstop>
+  <tabstop>buttonPrevious</tabstop>
+  <tabstop>buttonNext</tabstop>
+  <tabstop>buttonEnd</tabstop>
+  <tabstop>buttonGoto</tabstop>
+  <tabstop>editGoto</tabstop>
+  <tabstop>scrollareaPragmas</tabstop>
+  <tabstop>comboboxPragmaAutoVacuum</tabstop>
+  <tabstop>checkboxPragmaAutomaticIndex</tabstop>
+  <tabstop>checkboxPragmaCheckpointFullFsync</tabstop>
+  <tabstop>checkboxPragmaForeignKeys</tabstop>
+  <tabstop>checkboxPragmaFullFsync</tabstop>
+  <tabstop>checkboxPragmaIgnoreCheckConstraints</tabstop>
+  <tabstop>comboboxPragmaJournalMode</tabstop>
+  <tabstop>spinPragmaJournalSizeLimit</tabstop>
+  <tabstop>comboboxPragmaLockingMode</tabstop>
+  <tabstop>spinPragmaMaxPageCount</tabstop>
+  <tabstop>spinPragmaPageSize</tabstop>
+  <tabstop>checkboxPragmaSecureDelete</tabstop>
+  <tabstop>checkboxPragmaRecursiveTriggers</tabstop>
+  <tabstop>comboboxPragmaSynchronous</tabstop>
+  <tabstop>comboboxPragmaTempStore</tabstop>
+  <tabstop>spinPragmaUserVersion</tabstop>
+  <tabstop>spinPragmaWalAutoCheckpoint</tabstop>
+  <tabstop>tabSqlAreas</tabstop>
+ </tabstops>
+ <resources>
+  <include location="icons/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>fileExitAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileOpenAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileOpen()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileNewAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileNew()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileCloseAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileClose()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBrowseTable</sender>
+   <signal>activated(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>populateTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>118</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonNewRecord</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>addRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>402</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonDeleteRecord</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>deleteRecord()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>506</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonPrevious</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>navigatePrevious()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonNext</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>navigateNext()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>183</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonGoto</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>navigateGoto()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>365</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editGoto</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>navigateGoto()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>506</x>
+     <y>538</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRefresh</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>refresh()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>245</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileCompactAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>compact()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>helpWhatsThisAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>helpWhatsThis()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>helpAboutAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>helpAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mainTab</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>mainTabSelected(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>315</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileImportCSVAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>importTableFromCSV()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileExportCSVAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exportTableToCSV()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileRevertAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileRevert()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileSaveAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileSave()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editCreateIndexAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createIndex()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editDeleteObjectAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>deleteObject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editModifyObjectAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>editObject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileExportSQLAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exportDatabaseToSQL()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileImportSQLAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>importDatabaseFromSQL()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>viewPreferencesAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openPreferences()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dbTreeWidget</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createTreeContextMenu(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>viewDBToolbarAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>toolbarDB</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>34</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlFind</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setFindFrameVisibility(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>34</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlFindReplace</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openFindReplaceDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>34</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editCreateTableAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>createTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBoxPragmas</sender>
+   <signal>rejected()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>loadPragmas()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>540</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>470</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBoxPragmas</sender>
+   <signal>accepted()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>savePragmas()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>540</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>802</x>
+     <y>522</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonLogClear</sender>
+   <signal>clicked()</signal>
+   <receiver>editLogApplication</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>989</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>173</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonLogClear</sender>
+   <signal>clicked()</signal>
+   <receiver>editLogUser</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>989</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1028</x>
+     <y>230</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboLogSubmittedBy</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>stackLog</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>772</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1028</x>
+     <y>230</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dataTable</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>doubleClickTable(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabSqlAreas</sender>
+   <signal>tabCloseRequested(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>closeSqlTab(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>51</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabSqlAreas</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>changeSqlTab(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>51</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExecuteSql</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>executeQuery()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlOpenTab</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openSqlTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlOpenFile</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>openSqlFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlSaveFile</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveSqlFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLoadExtension</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>loadExtension()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlExecuteLine</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>executeQuery()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExportCsvPopup</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exportTableToCSV()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOpenProject</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>loadProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSaveProject</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileAttachAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileAttach()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEncryption</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>editEncryption()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlSaveFilePopup</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveSqlFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlSaveFileAs</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveSqlFileAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonEnd</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>navigateEnd()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBegin</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>navigateBegin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>539</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEditBrowseTable</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>switchToBrowseDataTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionEditCopyCreateStatement</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>copyCurrentCreateStatement()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dataTable</sender>
+   <signal>foreignKeyClicked(sqlb::ObjectIdentifier,QString,QByteArray)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>jumpToRow(sqlb::ObjectIdentifier,QString,QByteArray)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionBrowseTableEditDisplayFormat</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>editDataColumnDisplayFormat()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShowRowidColumn</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showRowidColumn(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSetTableEncoding</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>browseDataSetTableEncoding()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSetAllTablesEncoding</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>browseDataSetDefaultTableEncoding()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileExportJsonAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>exportTableToJson()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRefresh</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>refresh()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileOpenReadOnlyAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fileOpenReadOnly()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionUnlockViewEditing</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>unlockViewEditing(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlResultsExportCsv</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveSqlResultsAsCsv()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSqlResultsSaveAsView</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveSqlResultsAsView()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionHideColumns</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>hideColumns()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabSqlAreas</sender>
+   <signal>tabBarDoubleClicked(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>renameSqlTab(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>330</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSaveFilterAsView</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>saveFilterAsView()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>viewProjectToolbarAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>toolbarProject</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>887</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>viewExtraDBToolbarAction</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>toolbarExtraDB</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>737</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>toolButtonStyleChanged(Qt::ToolButtonStyle)</signal>
+   <receiver>toolbarDB</receiver>
+   <slot>setToolButtonStyle(Qt::ToolButtonStyle)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>toolButtonStyleChanged(Qt::ToolButtonStyle)</signal>
+   <receiver>toolbarExtraDB</receiver>
+   <slot>setToolButtonStyle(Qt::ToolButtonStyle)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>737</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MainWindow</sender>
+   <signal>toolButtonStyleChanged(Qt::ToolButtonStyle)</signal>
+   <receiver>toolbarProject</receiver>
+   <slot>setToolButtonStyle(Qt::ToolButtonStyle)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>959</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>fileOpen()</slot>
+  <slot>fileClose()</slot>
+  <slot>populateTable()</slot>
+  <slot>addRecord()</slot>
+  <slot>deleteRecord()</slot>
+  <slot>navigatePrevious()</slot>
+  <slot>navigateNext()</slot>
+  <slot>navigateBegin()</slot>
+  <slot>navigateEnd()</slot>
+  <slot>navigateGoto()</slot>
+  <slot>browseFind(bool)</slot>
+  <slot>refresh()</slot>
+  <slot>compact()</slot>
+  <slot>helpWhatsThis()</slot>
+  <slot>doubleClickTable(QModelIndex)</slot>
+  <slot>browseTableHeaderClicked(int)</slot>
+  <slot>mainTabSelected(int)</slot>
+  <slot>executeQuery()</slot>
+  <slot>importTableFromCSV()</slot>
+  <slot>exportTableToCSV()</slot>
+  <slot>fileRevert()</slot>
+  <slot>fileSave()</slot>
+  <slot>deleteIndex()</slot>
+  <slot>createIndex()</slot>
+  <slot>createTable()</slot>
+  <slot>deleteObject()</slot>
+  <slot>editObject()</slot>
+  <slot>editTablePopup()</slot>
+  <slot>addField()</slot>
+  <slot>editField()</slot>
+  <slot>exportDatabaseToSQL()</slot>
+  <slot>importDatabaseFromSQL()</slot>
+  <slot>openPreferences()</slot>
+  <slot>createTreeContextMenu(QPoint)</slot>
+  <slot>changeTreeSelection()</slot>
+  <slot>fileNew()</slot>
+  <slot>helpAbout()</slot>
+  <slot>deleteField()</slot>
+  <slot>loadPragmas()</slot>
+  <slot>savePragmas()</slot>
+  <slot>copy()</slot>
+  <slot>closeSqlTab(int)</slot>
+  <slot>openSqlTab()</slot>
+  <slot>openSqlFile()</slot>
+  <slot>saveSqlFile()</slot>
+  <slot>loadExtension()</slot>
+  <slot>loadProject()</slot>
+  <slot>saveProject()</slot>
+  <slot>fileAttach()</slot>
+  <slot>editEncryption()</slot>
+  <slot>saveSqlFileAs()</slot>
+  <slot>switchToBrowseDataTab()</slot>
+  <slot>copyCurrentCreateStatement()</slot>
+  <slot>jumpToRow(sqlb::ObjectIdentifier,QString,QByteArray)</slot>
+  <slot>editDataColumnDisplayFormat()</slot>
+  <slot>showRowidColumn(bool)</slot>
+  <slot>browseDataSetTableEncoding()</slot>
+  <slot>browseDataSetDefaultTableEncoding()</slot>
+  <slot>browseDataFetchAllData()</slot>
+  <slot>exportTableToJson()</slot>
+  <slot>fileOpenReadOnly()</slot>
+  <slot>unlockViewEditing(bool)</slot>
+  <slot>saveSqlResultsAsCsv()</slot>
+  <slot>saveSqlResultsAsView()</slot>
+  <slot>changeSqlTab(int)</slot>
+  <slot>hideColumns()</slot>
+  <slot>renameSqlTab(int)</slot>
+ </slots>
+</ui>

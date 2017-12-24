@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/certs">
+        <file>ca-chain-development.crt</file>
+    </qresource>
+</RCC>
