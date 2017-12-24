@@ -228,5 +228,5 @@ unix {
     INSTALLS += appdata
 }
 
-## Rules for creating/updating {ts|qm}-files
-#include(i18n.pri)
+# Rules for creating/updating {ts|qm}-files
+include(i18n.pri)
