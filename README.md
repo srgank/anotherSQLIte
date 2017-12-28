@@ -1,6 +1,6 @@
 # SQLite-New
 Browser for SQLite database files, open source tool 
-
+![alt text](https://github.com/srgank/SQLite-New/blob/master/img/Screenshot%20from%202017-12-28%2011-36-07.png)
 Create and compact database files
 Create, define, modify and delete tables
 Create, define and delete indexes
