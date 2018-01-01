@@ -370,7 +370,7 @@ bool MainWindow::fileOpen(const QString& fileName, bool dontAddToRecentFiles, bo
             }
         }
     }
-
+    populateTable();
     return retval;
 }
 
@@ -458,8 +458,8 @@ void MainWindow::clearTableBrowser()
 void MainWindow::populateTable()
 {
     // Early exit if the Browse Data tab isn't visible as there is no need to update it in this case
-    if(ui->mainTab->currentIndex() != BrowseTab)
-        return;
+    if(ui->mainTab->currentIndex() != BrowseTab )
+       // return;
 
     // Remove the model-view link if the table name is empty in order to remove any data from the view
     if(ui->comboBrowseTable->model()->rowCount(ui->comboBrowseTable->rootModelIndex()) == 0)
@@ -540,6 +540,10 @@ void MainWindow::populateTable()
         // Load display formats and set them along with the table name
         QVector<QString> v;
         bool only_defaults = true;
+        if (db.getObjectByName(tablename) == nullptr){
+            QApplication::restoreOverrideCursor();
+            return;
+        }
         const sqlb::FieldInfoList& tablefields = db.getObjectByName(tablename)->fieldInformation();
         for(int i=0; i<tablefields.size(); ++i)
         {
@@ -589,7 +593,10 @@ void MainWindow::populateTable()
         // Plot
         plotDock->updatePlot(m_browseTableModel, &browseTableSettings[tablename], true, false);
     }
-
+    if (db.getObjectByName(currentlyBrowsedTableName())==nullptr){
+        QApplication::restoreOverrideCursor();
+        return;
+    }
     // Show/hide menu options depending on whether this is a table or a view
     if(db.getObjectByName(currentlyBrowsedTableName())->type() == sqlb::Object::Table)
     {
@@ -791,8 +798,9 @@ void MainWindow::refresh()
     // always perform some meaningful task; they just happen to be context dependent in the function they trigger.
     switch(ui->mainTab->currentIndex())
     {
-    case StructureTab:
-        // Refresh the schema
+//    case StructureTab:
+    case -1:
+    // Refresh the schema
         db.updateSchema();
         break;
     case BrowseTab:
@@ -1201,8 +1209,8 @@ void MainWindow::mainTabSelected(int tabindex)
 
     switch (tabindex)
     {
-    case StructureTab:
-        break;
+//    case StructureTab:
+//        break;
 
     case BrowseTab:
         m_currentTabTableModel = m_browseTableModel;
@@ -1254,7 +1262,8 @@ void MainWindow::exportTableToCSV()
 {
     // Get the current table name if we are in the Browse Data tab
     sqlb::ObjectIdentifier current_table;
-    if(ui->mainTab->currentIndex() == StructureTab)
+//    if(ui->mainTab->currentIndex() == StructureTab)
+    if(ui->mainTab->currentIndex() == -1)
     {
         QString type = ui->dbTreeWidget->model()->data(ui->dbTreeWidget->currentIndex().sibling(ui->dbTreeWidget->currentIndex().row(), DbStructureModel::ColumnObjectType)).toString();
         if(type == "table" || type == "view")
@@ -1276,7 +1285,8 @@ void MainWindow::exportTableToJson()
 {
     // Get the current table name if we are in the Browse Data tab
     sqlb::ObjectIdentifier current_table;
-    if(ui->mainTab->currentIndex() == StructureTab)
+//    if(ui->mainTab->currentIndex() == StructureTab)
+    if(ui->mainTab->currentIndex() == -1)
     {
         QString type = ui->dbTreeWidget->model()->data(ui->dbTreeWidget->currentIndex().sibling(ui->dbTreeWidget->currentIndex().row(), DbStructureModel::ColumnObjectType)).toString();
         if(type == "table" || type == "view")
@@ -1644,7 +1654,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     switch (event->key())
     {
     case Qt::Key_1:
-        tab = Tabs::StructureTab;
+//        tab = Tabs::StructureTab;
         break;
     case Qt::Key_2:
         tab = Tabs::BrowseTab;
@@ -2579,7 +2589,9 @@ void MainWindow::fileOpenReadOnly()
 void MainWindow::unlockViewEditing(bool unlock, QString pk)
 {
     sqlb::ObjectIdentifier currentTable = currentlyBrowsedTableName();
-
+    if (db.getObjectByName(currentTable) == nullptr){
+        return;
+    }
     // If this isn't a view just unlock editing and return
     if(db.getObjectByName(currentTable)->type() != sqlb::Object::View)
     {
@@ -2745,7 +2757,6 @@ void MainWindow::saveAsView(QString query)
     else
         QMessageBox::warning(this, qApp->applicationName(), tr("Error creating view: %1").arg(db.lastError()));
 }
-
 
 void MainWindow::saveFilterAsView()
 {

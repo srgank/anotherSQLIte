@@ -103,7 +103,7 @@ public:
 
     enum Tabs
     {
-        StructureTab,
+//        StructureTab,
         BrowseTab,
         PragmaTab,
         ExecuteTab

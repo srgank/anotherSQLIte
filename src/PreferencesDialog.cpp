@@ -124,14 +124,17 @@ void PreferencesDialog::loadSettings()
         {
             QSslCertificate cert = ca_certs.at(i);
 
-            QTableWidgetItem* cert_cn = new QTableWidgetItem(cert.subjectInfo(QSslCertificate::CommonName).at(0));
-            cert_cn->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-            ui->tableCaCerts->setItem(i, 0, cert_cn);
+            if (cert.subjectInfo(QSslCertificate::CommonName).size() != 0){
+                QTableWidgetItem* cert_cn = new QTableWidgetItem(cert.subjectInfo(QSslCertificate::CommonName).at(0));
+                cert_cn->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+                ui->tableCaCerts->setItem(i, 0, cert_cn);
+            }
 
-            QTableWidgetItem* cert_o = new QTableWidgetItem(cert.subjectInfo(QSslCertificate::Organization).at(0));
-            cert_o->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-            ui->tableCaCerts->setItem(i, 1, cert_o);
-
+            if (cert.subjectInfo(QSslCertificate::Organization).size() != 0){
+                QTableWidgetItem* cert_o = new QTableWidgetItem(cert.subjectInfo(QSslCertificate::Organization).at(0));
+                cert_o->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+                ui->tableCaCerts->setItem(i, 1, cert_o);
+            }
             QTableWidgetItem* cert_from = new QTableWidgetItem(cert.effectiveDate().toString());
             cert_from->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
             ui->tableCaCerts->setItem(i, 2, cert_from);
