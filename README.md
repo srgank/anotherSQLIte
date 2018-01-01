@@ -15,5 +15,6 @@ brew cask install db-browser-for-sqlite
 
 Use Qt framework latest version to build on Linux,Windows, MacOS X 
 https://www.qt.io/download-qt-for-application-development
-
+Download Binary version for Windows platform 
+![alt text](https://github.com/srgank/SQLite-New/blob/master/img/SQLiteBrowserNew.zip)
 
