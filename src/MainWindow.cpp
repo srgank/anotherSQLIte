@@ -312,6 +312,8 @@ void MainWindow::init()
     ui->dockPlot->setWindowTitle(ui->dockPlot->windowTitle().remove('&'));
     ui->dockSchema->setWindowTitle(ui->dockSchema->windowTitle().remove('&'));
     ui->dockRemote->setWindowTitle(ui->dockRemote->windowTitle().remove('&'));
+
+    ui->mainTab->setMinimumHeight(height() - 100);
 }
 
 bool MainWindow::fileOpen(const QString& fileName, bool dontAddToRecentFiles, bool readOnly)
@@ -459,7 +461,7 @@ void MainWindow::populateTable()
 {
     // Early exit if the Browse Data tab isn't visible as there is no need to update it in this case
     if(ui->mainTab->currentIndex() != BrowseTab )
-       // return;
+        return;
 
     // Remove the model-view link if the table name is empty in order to remove any data from the view
     if(ui->comboBrowseTable->model()->rowCount(ui->comboBrowseTable->rootModelIndex()) == 0)
@@ -1644,6 +1646,7 @@ void MainWindow::browseTableHeaderClicked(int logicalindex)
 
 void MainWindow::resizeEvent(QResizeEvent*)
 {
+    ui->mainTab->setMinimumHeight(ui->centralwidget->height());
     setRecordsetLabel();
 }
 
