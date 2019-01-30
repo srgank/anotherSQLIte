@@ -1,5 +1,5 @@
 # SQLite-New
-Browser for SQLite database files, open source tool 
+# Browser for SQLite database files, open source tool 
 ![alt text](https://github.com/srgank/SQLite-New/blob/master/img/Screenshot%20from%202017-12-28%2011-36-07.png)
 Create and compact database files
 Create, define, modify and delete tables
@@ -13,7 +13,8 @@ Issue SQL queries and inspect the results
 brew cask install db-browser-for-sqlite
 ![alt text](https://github.com/srgank/SQLite-New/blob/master/img/Screenshot%20from%202017-12-28%2011-42-20.png)
 
-Use Qt framework latest version to build on Linux,Windows, MacOS X 
+# Use Qt framework latest version to build on Linux,Windows, MacOS X 
 https://www.qt.io/download-qt-for-application-development
-
+# Download Binary version for Windows platform 
+![Download](https://github.com/srgank/SQLite-New/blob/master/img/SQLiteBrowserNew.zip)
 
