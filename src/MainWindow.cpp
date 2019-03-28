@@ -314,6 +314,14 @@ void MainWindow::init()
     ui->dockRemote->setWindowTitle(ui->dockRemote->windowTitle().remove('&'));
 
     ui->mainTab->setMinimumHeight(height() - 100);
+
+    ui->dockEdit->setVisible(false);
+    ui->dockLog->setVisible(false);
+    ui->dockPlot->setVisible(false);
+    ui->dockSchema->setVisible(false);
+    ui->dockRemote->setVisible(false);
+
+    adjustSize();
 }
 
 bool MainWindow::fileOpen(const QString& fileName, bool dontAddToRecentFiles, bool readOnly)
@@ -1435,8 +1443,15 @@ void MainWindow::changeTreeSelection()
         return;
 
     // Change the text and tooltips of the actions
+    QString type1 = ui->dbTreeWidget->model()->data(ui->dbTreeWidget->currentIndex().sibling(ui->dbTreeWidget->currentIndex().row(), 0)).toString();
     QString type = ui->dbTreeWidget->model()->data(ui->dbTreeWidget->currentIndex().sibling(ui->dbTreeWidget->currentIndex().row(), 1)).toString();
+    int r = ui->dbTreeWidget->currentIndex().row();
+    int c = ui->dbTreeWidget->currentIndex().column();
 
+    if (type == "table") {
+        ui->comboBrowseTable->setCurrentIndex(r);
+        populateTable();
+    }
     if (type.isEmpty())
     {
         ui->editDeleteObjectAction->setIcon(QIcon(":icons/table_delete"));
@@ -1647,7 +1662,10 @@ void MainWindow::browseTableHeaderClicked(int logicalindex)
 void MainWindow::resizeEvent(QResizeEvent*)
 {
     ui->mainTab->setMinimumHeight(ui->centralwidget->height());
+    ui->mainTab->setMinimumWidth(ui->centralwidget->width());
+    ui->mainTab->setMaximumWidth(ui->centralwidget->width());
     setRecordsetLabel();
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event)
