@@ -10,7 +10,9 @@
     #include <sqlcipher/sqlite3.h>
 #endif
 #else
-    #include <sqlite3.h>
+//    #include <sqlite3.h>
+      #include "libs/sqlite3/sqlite3.h"
+
 #endif
 
 #endif

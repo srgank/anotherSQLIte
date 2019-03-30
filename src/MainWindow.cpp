@@ -287,7 +287,7 @@ void MainWindow::init()
     setWindowTitle(QApplication::applicationName());
 
     // Load all settings
-    reloadSettings();
+//    reloadSettings();
 
 #ifdef CHECKNEWVERSION
     // Check for a new version if automatic update check aren't disabled in the settings dialog
@@ -320,7 +320,7 @@ void MainWindow::init()
     ui->dockPlot->setVisible(false);
     ui->dockSchema->setVisible(false);
     ui->dockRemote->setVisible(false);
-
+    ui->dockWidget_2->setVisible(true);
     adjustSize();
 }
 

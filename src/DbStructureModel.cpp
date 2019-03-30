@@ -313,7 +313,7 @@ void DbStructureModel::buildTree(QTreeWidgetItem* parent, const QString& schema)
             for(const sqlb::FieldInfo& field : fieldList)
             {
                 QTreeWidgetItem *fldItem = new QTreeWidgetItem(item);
-                fldItem->setText(ColumnName, field.name);
+                fldItem->setText(ColumnName, field.name + " ("+field.type + " )");
                 fldItem->setText(ColumnObjectType, "field");
                 fldItem->setText(ColumnDataType, field.type);
                 fldItem->setText(ColumnSQL, field.sql);
