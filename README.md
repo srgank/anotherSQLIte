@@ -18,10 +18,3 @@ https://www.qt.io/download-qt-for-application-development
 # Download Binary version for Windows platform 
 ![Download](https://github.com/srgank/SQLite-New/blob/master/img/DBSQLITE.zip)
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-9375481889142069",
-          enable_page_level_ads: true
-     });
-</script>
