@@ -1,4 +1,5 @@
-# SQLite-New ( Forked from https://github.com/sqlitebrowser/sqlitebrowser
+# SQLite-New 
+( Forked from https://github.com/sqlitebrowser/sqlitebrowser )
 # Browser for SQLite database files, open source tool 
 ![alt text](https://github.com/srgank/SQLite-New/blob/master/img/pic1.png)
 Create and compact database files
