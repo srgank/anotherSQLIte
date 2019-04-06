@@ -15,8 +15,11 @@ brew cask install db-browser-for-sqlite
 ![alt text](https://github.com/srgank/SQLite-New/blob/master/img/pic2.png)
 
 
-# Use Qt framework 5.11 to build on Linux,Windows, MacOS X - recommended by Justin Clift (@justinclift) 
+# Use Qt framework 5.11 to build on Linux,Windows, MacOS X 
+recommended by Justin Clift [@justinclift](https://github.com/justinclift)
+
 (Qt 5.12 (5.12.0 → 5.12.2) have a bug with incorrectly rendering cell data.)
+
 https://www.qt.io/download-qt-for-application-development
 
 
