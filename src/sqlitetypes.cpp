@@ -1246,6 +1246,7 @@ FieldInfoList Index::fieldInformation() const
     FieldInfoList result;
     for(const IndexedColumnPtr& c : m_columns)
         result.append({c->name(), c->order(), c->toString("  ", " ")});
+
     return result;
 }
 

@@ -351,8 +351,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>887</width>
-           <height>573</height>
+           <width>881</width>
+           <height>563</height>
           </rect>
          </property>
          <layout class="QFormLayout" name="formLayout">
@@ -840,7 +840,7 @@
      <x>0</x>
      <y>0</y>
      <width>1223</width>
-     <height>19</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="fileMenu">
@@ -925,7 +925,7 @@
     <string>DB Toolbar</string>
    </property>
    <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonIconOnly</enum>
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -1113,20 +1113,6 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_5"/>
   </widget>
-  <widget class="QToolBar" name="toolbarProject">
-   <property name="windowTitle">
-    <string>Project Toolbar</string>
-   </property>
-   <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonIconOnly</enum>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QToolBar" name="toolbarExtraDB">
    <property name="enabled">
     <bool>true</bool>
@@ -1138,7 +1124,7 @@
     <string>Close the current database file</string>
    </property>
    <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonIconOnly</enum>
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -2860,22 +2846,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>viewProjectToolbarAction</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>toolbarProject</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>887</x>
-     <y>44</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>viewExtraDBToolbarAction</sender>
    <signal>toggled(bool)</signal>
    <receiver>toolbarExtraDB</receiver>
@@ -2919,22 +2889,6 @@
     </hint>
     <hint type="destinationlabel">
      <x>737</x>
-     <y>44</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>MainWindow</sender>
-   <signal>toolButtonStyleChanged(Qt::ToolButtonStyle)</signal>
-   <receiver>toolbarProject</receiver>
-   <slot>setToolButtonStyle(Qt::ToolButtonStyle)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>518</x>
-     <y>314</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>959</x>
      <y>44</y>
     </hint>
    </hints>

@@ -109,7 +109,11 @@ void MainWindow::init()
     dbStructureModel = new DbStructureModel(db, this);
     ui->dbTreeWidget->setModel(dbStructureModel);
     ui->dbTreeWidget->setColumnWidth(DbStructureModel::ColumnName, 300);
+
+    ui->dbTreeWidget->setColumnHidden(DbStructureModel::ColumnName, false);
     ui->dbTreeWidget->setColumnHidden(DbStructureModel::ColumnObjectType, true);
+    ui->dbTreeWidget->setColumnHidden(DbStructureModel::ColumnDataType, true);
+    ui->dbTreeWidget->setColumnHidden(DbStructureModel::ColumnSQL, true);
     ui->dbTreeWidget->setColumnHidden(DbStructureModel::ColumnSchema, true);
 
     // Set up DB schema dock
@@ -221,7 +225,7 @@ void MainWindow::init()
     // Set checked state if toolbar is visible
     ui->viewDBToolbarAction->setChecked(!ui->toolbarDB->isHidden());
     ui->viewExtraDBToolbarAction->setChecked(!ui->toolbarExtraDB->isHidden());
-    ui->viewProjectToolbarAction->setChecked(!ui->toolbarProject->isHidden());
+//    ui->viewProjectToolbarAction->setChecked(!ui->toolbarProject->isHidden());
 
     // Add separator between docks and toolbars
     ui->viewMenu->insertSeparator(ui->viewDBToolbarAction);

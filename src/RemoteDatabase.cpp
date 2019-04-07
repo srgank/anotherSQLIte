@@ -389,7 +389,7 @@ void RemoteDatabase::fetch(const QString& url, RequestType type, const QString& 
     // Check if network is accessible. If not, abort right here
     if(m_manager->networkAccessible() == QNetworkAccessManager::NotAccessible)
     {
-        QMessageBox::warning(nullptr, qApp->applicationName(), tr("Error: The network is not accessible."));
+//        QMessageBox::warning(nullptr, qApp->applicationName(), tr("Error: The network is not accessible."));
         return;
     }
 
