@@ -1,7 +1,7 @@
 # anotherSQLIte
 ( Forked from https://github.com/sqlitebrowser/sqlitebrowser )
 # Browser for SQLite database files, open source tool 
-![alt text](https://github.com/srgank/anotherSQLIte/blob/master/img/pic1.png)
+![alt text](https://github.com/srgank/anotherSQLIte/blob/master/images/pic1.png)
 Create and compact database files
 Create, define, modify and delete tables
 Create, define and delete indexes
@@ -12,7 +12,7 @@ Import and export tables from/to CSV files
 Import and export databases from/to SQL dump files
 Issue SQL queries and inspect the results
 brew cask install db-browser-for-sqlite
-![alt text](https://github.com/srgank/anotherSQLIte/blob/master/img/pic2.png)
+![alt text](https://github.com/srgank/anotherSQLIte/blob/master/images/pic2.png)
 
 
 # Use Qt framework 5.11 to build on Linux,Windows, MacOS X 
@@ -24,7 +24,7 @@ https://www.qt.io/download-qt-for-application-development
 
 
 # Download Binary version for Windows platform 
-![Download](https://github.com/srgank/anotherSQLIte/blob/master/img/DBSQLITE.zip)
+![Download](https://github.com/srgank/anotherSQLIte/files/3069250/DBSQLITE.zip)
 
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CUHS93YH9FJ9S&currency_code=USD&source=url)
