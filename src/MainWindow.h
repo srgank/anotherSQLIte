@@ -294,6 +294,8 @@ private slots:
     void setFindFrameVisibility(bool show);
     void openFindReplaceDialog();
     void saveFilterAsView();
+    bool eventFilter( QObject * watched, QEvent * event );
+
 };
 
 #endif

@@ -325,8 +325,25 @@ void MainWindow::init()
     ui->dockSchema->setVisible(false);
     ui->dockRemote->setVisible(false);
     ui->dockWidget_2->setVisible(true);
+
+    ui->dbTreeWidget->installEventFilter(this);
     adjustSize();
 }
+
+
+bool MainWindow::eventFilter( QObject * watched, QEvent * event )
+{
+    QTreeView *treeView = qobject_cast<QTreeView *>(watched);
+    if ( treeView && event->type() == QEvent::Resize )
+    {
+        int leftWidth = ui->dockWidget_2->width();
+        int fullWidth = width();
+        ui->mainTab->setFixedSize(fullWidth-leftWidth -5, ui->centralwidget->geometry().height());
+    }
+
+    return QObject::eventFilter(watched, event);
+}
+
 
 bool MainWindow::fileOpen(const QString& fileName, bool dontAddToRecentFiles, bool readOnly)
 {
