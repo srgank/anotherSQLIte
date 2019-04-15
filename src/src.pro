@@ -141,6 +141,21 @@ TRANSLATIONS += \
     translations/sqlb_tr.ts \
     translations/sqlb_uk_UA.ts
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libs/sqlite3/release/ -lsqlite3
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libs/sqlite3/debug/ -lsqlite3
+else:unix: LIBS += -L$$OUT_PWD/../libs/sqlite3/ -lsqlite3
+
+INCLUDEPATH += $$PWD/../libs/sqlite3
+DEPENDPATH += $$PWD/../libs/sqlite3
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/release/libsqlite3.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/debug/libsqlite3.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/release/sqlite3.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/debug/sqlite3.lib
+else:unix: PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/libsqlite3.a
+
+
 # SQLite / SQLCipher switch pieces
 CONFIG(sqlcipher) {
     QMAKE_CXXFLAGS += -DENABLE_SQLCIPHER
@@ -209,6 +224,8 @@ INCLUDEPATH += $$PWD/../libs/antlr-2.7.7 $$PWD/../libs/qhexedit $$PWD/../libs/qc
 LIBS += -L$$LIBPATH_QHEXEDIT -L$$LIBPATH_ANTLR -L$$LIBPATH_QCUSTOMPLOT -L$$LIBPATH_QSCINTILLA -lantlr -lqhexedit -lqcustomplot -lqscintilla2
 DEPENDPATH += $$PWD/../libs/antlr-2.7.7 $$PWD/../libs/qhexedit $$PWD/../libs/qcustomplot-source $$PWD/../libs/qscintilla/Qt4Qt5
 
+
+
 unix {
     # The executable
     target.path = /usr/local/bin/
@@ -232,15 +249,3 @@ unix {
 include(i18n.pri)
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libs/sqlite3/release/ -lsqlite3
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libs/sqlite3/debug/ -lsqlite3
-else:unix: LIBS += -L$$OUT_PWD/../libs/sqlite3/ -lsqlite3
-
-INCLUDEPATH += $$PWD/../libs/sqlite3
-DEPENDPATH += $$PWD/../libs/sqlite3
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/release/libsqlite3.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/debug/libsqlite3.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/release/sqlite3.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/debug/sqlite3.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../libs/sqlite3/libsqlite3.a
