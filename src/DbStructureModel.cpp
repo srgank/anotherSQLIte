@@ -268,11 +268,6 @@ void DbStructureModel::buildTree(QTreeWidgetItem* parent, const QString& schema)
     itemTables->setText(ColumnName, tr("Tables (%1)").arg(objmap.values("table").count()));
     typeToParentItem.insert("table", itemTables);
 
-    QTreeWidgetItem* itemIndices = new QTreeWidgetItem(parent);
-    itemIndices->setIcon(ColumnName, QIcon(QString(":/icons/index")));
-    itemIndices->setText(ColumnName, tr("Indices (%1)").arg(objmap.values("index").count()));
-    typeToParentItem.insert("index", itemIndices);
-
     QTreeWidgetItem* itemViews = new QTreeWidgetItem(parent);
     itemViews->setIcon(ColumnName, QIcon(QString(":/icons/view")));
     itemViews->setText(ColumnName, tr("Views (%1)").arg(objmap.values("view").count()));
@@ -288,15 +283,37 @@ void DbStructureModel::buildTree(QTreeWidgetItem* parent, const QString& schema)
     for(auto it=objmap.constBegin(); it != objmap.constEnd(); ++it)
         dbobjs.insert((*it)->name(), (*it));
 
-    // Add the database objects to the tree nodes
-    for(auto it=dbobjs.constBegin();it!=dbobjs.constEnd();++it)
-    {
-        // Object node
+    // Get all database objects and sort them by their name
+    QMultiMap<QString, sqlb::ObjectPtr> dbobjsIndex;
+    for(auto it=objmap.constBegin(); it != objmap.constEnd(); ++it){
+        if((*it)->type() == sqlb::Object::Types::Index)
+            dbobjsIndex.insert((*it)->name(), (*it));
+    }
+
+    for(auto it=dbobjs.constBegin();it!=dbobjs.constEnd();++it){
+        if((*it)->type() == sqlb::Object::Types::Table || (*it)->type() == sqlb::Object::Types::View){
+
+        QMultiMap<QString, sqlb::ObjectPtr> dbobjsIndexTemp;
+        for(auto itIndx=dbobjsIndex.constBegin(); itIndx != dbobjsIndex.constEnd(); ++itIndx){
+            if((*it)->name() == itIndx->data()->baseTable())
+                dbobjsIndexTemp.insert((*itIndx)->name(), (*itIndx));
+        }
+
+        addNode(browsablesRootItem, *it, schema);
+
         QTreeWidgetItem* item = addNode(typeToParentItem.value(sqlb::Object::typeToString((*it)->type())), *it, schema);
 
-        // If it is a table or view add the field nodes, add an extra node for the browsable section
-        if((*it)->type() == sqlb::Object::Types::Table || (*it)->type() == sqlb::Object::Types::View)
-            addNode(browsablesRootItem, *it, schema);
+
+        QTreeWidgetItem* itemFields = new QTreeWidgetItem(item);
+        itemFields->setIcon(ColumnName, QIcon(QString(":/icons/index")));
+        itemFields->setText(ColumnName, tr("Fields (%1)").arg((*it)->fieldInformation().count()));
+        typeToParentItem.insert("fields", itemFields);
+
+
+        QTreeWidgetItem* itemIndices = new QTreeWidgetItem(item);
+        itemIndices->setIcon(ColumnName, QIcon(QString(":/icons/index")));
+        itemIndices->setText(ColumnName, tr("Indexes (%1)").arg(dbobjsIndexTemp.count()));
+        typeToParentItem.insert("index", itemIndices);
 
         // Add field nodes if there are any
         sqlb::FieldInfoList fieldList = (*it)->fieldInformation();
@@ -308,11 +325,10 @@ void DbStructureModel::buildTree(QTreeWidgetItem* parent, const QString& schema)
                 sqlb::FieldVector pk = (*it).dynamicCast<sqlb::Table>()->primaryKey();
                 for(const sqlb::FieldPtr& pk_col : pk)
                     pk_columns.push_back(pk_col->name());
-
             }
             for(const sqlb::FieldInfo& field : fieldList)
             {
-                QTreeWidgetItem *fldItem = new QTreeWidgetItem(item);
+                QTreeWidgetItem *fldItem = new QTreeWidgetItem(itemFields);
                 fldItem->setText(ColumnName, field.name + " ("+field.type + " )");
                 fldItem->setText(ColumnObjectType, "field");
                 fldItem->setText(ColumnDataType, field.type);
@@ -323,6 +339,17 @@ void DbStructureModel::buildTree(QTreeWidgetItem* parent, const QString& schema)
                 else
                     fldItem->setIcon(ColumnName, QIcon(":/icons/field"));
             }
+        }
+
+        // Add index nodes if there are any
+        for(auto itIndx=dbobjsIndexTemp.constBegin(); itIndx != dbobjsIndexTemp.constEnd(); ++itIndx){
+            QTreeWidgetItem *fldItem = new QTreeWidgetItem(itemIndices);
+            fldItem->setText(ColumnName, (*itIndx)->name());
+            fldItem->setText(ColumnObjectType, "index");
+            fldItem->setText(ColumnDataType, "");
+            fldItem->setText(ColumnSQL, "");
+            fldItem->setText(ColumnSchema, schema);
+        }
         }
     }
 }
