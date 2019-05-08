@@ -28,6 +28,8 @@ https://www.qt.io/download-qt-for-application-development
 
 # Download Binary version for Windows platform 
 ![Download](https://github.com/srgank/anotherSQLIte/releases)
+# Youtube video
+[![Watch the video](https://img.youtube.com/vi/CBphjctD168/maxresdefault.jpg)](https://youtu.be/CBphjctD168)
 
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CUHS93YH9FJ9S&currency_code=USD&source=url)
